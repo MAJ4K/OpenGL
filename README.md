@@ -1,1 +1,1 @@
-# Open GL
+# OpenGL
