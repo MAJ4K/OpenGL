@@ -17,6 +17,7 @@
 #include <GL/glew.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
+#include <glm/glm.hpp>
 
 // SDL
 #include <SDL2/SDL.h>
