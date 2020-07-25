@@ -11,6 +11,7 @@ public:
     Display(unsigned short width, unsigned short height, const char* title);
     ~Display();
 
+    void clear(float r, float g, float b, float a);
     void update();
     bool IsClosed(){return isClosed;}
 };
@@ -52,6 +53,11 @@ Display::~Display()
     SDL_Quit();
 }
 
+void Display::clear(float r, float g, float b, float a)
+{
+    glClearColor(r,g,b,a);
+    glClear(GL_COLOR_BUFFER_BIT);
+}
 void Display::update()
 {
     SDL_GL_SwapWindow(winptr);
