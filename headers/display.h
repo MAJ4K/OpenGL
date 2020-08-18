@@ -1,19 +1,22 @@
 #pragma once
-#include "../common.h"
+// SDL
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_opengl.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 
 class Display
 {
 private:
     SDL_Window* winptr;
     SDL_GLContext glcontx;
-    bool isClosed;
 public:
     Display(unsigned short width, unsigned short height, const char* title);
     ~Display();
 
     void clear(float r, float g, float b, float a);
     void update();
-    bool IsClosed(){return isClosed;}
+    bool isClosed;
 };
 
 Display::Display(unsigned short width,unsigned short height,const char* title)
@@ -25,6 +28,7 @@ Display::Display(unsigned short width,unsigned short height,const char* title)
     SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
     SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
     SDL_GL_SetAttribute(SDL_GL_BUFFER_SIZE, 32);
+    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
     winptr = SDL_CreateWindow(title, 
@@ -36,14 +40,13 @@ Display::Display(unsigned short width,unsigned short height,const char* title)
 
     glcontx = SDL_GL_CreateContext(winptr);
 
-    GLenum status = glewInit();
-
-    if (status != GLEW_OK)
-    {
+    if (glewInit() != GLEW_OK)
         std::cerr << "Glew failed initialization\n";
-    }
+    
+    std::cout << glGetString(GL_VERSION) << std::endl;
 
     isClosed = false;
+    glEnable(GL_DEPTH_TEST);
 }
 
 Display::~Display()
@@ -56,7 +59,7 @@ Display::~Display()
 void Display::clear(float r, float g, float b, float a)
 {
     glClearColor(r,g,b,a);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 void Display::update()
 {

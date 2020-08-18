@@ -1,5 +1,4 @@
-#ifndef _COMMON_H
-#define _COMMON_H
+#pragma once
 
 // Standard
 #include <iostream>
@@ -19,10 +18,24 @@
 #include <GL/glu.h>
 #include <glm/glm.hpp>
 
-// SDL
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_opengl.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_ttf.h>
+//#define ASSERT(x) if (!(x)) ;
+/* #define GLCall(x) GLClearErr();\
+    x;\
+    GLLogCall() */
 
-#endif
+/*
+void
+GLClearErr()
+{
+    while (!glGetError());
+}
+
+bool
+GLLogCall()
+{
+    while (GLenum error = glGetError()){
+        std::cout << "[OpenGL Error]: " << error << std::endl;
+        return false;
+    }
+    return true;
+} */
